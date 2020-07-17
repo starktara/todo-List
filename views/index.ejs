@@ -13,6 +13,7 @@
     <body>
         <div class="box" id="heading">
             <h1><%= dayName %></h1>
+            <h2><%= title %></h2>
         </div>
 
         <div class="box">
@@ -26,7 +27,7 @@
 
             <form class="item" action="/" method="post">
                 <input type="text" name="todo" placeholder="today's work" autocomplete="off">
-                <button type="submit" name="button">+</button>
+                <button type="submit" name="button" value= <%= listName %> >+</button>
             </form>
                   
         </div>

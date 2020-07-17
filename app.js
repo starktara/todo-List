@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/dateModule.js");
 
 const app = express();
 
 var items = [];
+var work = [];
 
 app.set("view engine", "ejs");
 
@@ -11,23 +13,25 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", function(req, res){
-    var today = new Date();
-    var Options = {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-        year: "numeric"
-    }
+    const dayFormat = date.getShortDate();
+    res.render("index", {dayName: dayFormat, title: "Home", listItems : items, listName:"home"});
+})
 
-    var dayFormat = today.toLocaleDateString("en-US", Options);
-    
-    res.render("index", {dayName: dayFormat, listItems : items});
+app.get("/work", function(req, res){
+    const dayFormat = date.getFullDate();
+    res.render("index", {dayName: dayFormat, title: "Work", listItems : work, listName: "work"});
 })
 
 app.post("/", function(req, res){
     var item = req.body.todo;
-    items.push(item);
-    res.redirect("/");
+    if(req.body.button === "home"){
+        items.push(item);
+        res.redirect("/");
+    }
+    else{
+        work.push(item);
+        res.redirect("/work");
+    }    
 })
 
 app.listen(4040, function(){
