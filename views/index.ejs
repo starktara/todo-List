@@ -1,41 +1,32 @@
-<!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>To-Do-List</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<%- include("header"); -%>
+    
+    
+    <div class="box" id="heading">
+        <h1><%= dayName %></h1>
+        <h2><%= title %></h2>
+    </div>
 
-        <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+    <div class="box">
 
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <div class="box" id="heading">
-            <h1><%= dayName %></h1>
-            <h2><%= title %></h2>
-        </div>
-
-        <div class="box">
-            <% for(var i=0; i<listItems.length; i++){ %>
-            <div class="item">
-                    <input type="checkbox">
-                    <p> <%= listItems[i] %> </p>
-            </div>
-            <% } %>
+        <% listItems.forEach(function(item){ %>
+            <form action="/delete" method="post">
+                <div class="item">
+                    <input type="checkbox" name="checkbox" onchange="this.form.submit()" value= <%= item._id %> >
+                    <p> <%= item.itemName %> </p>
+                </div>
+                <input type="hidden" name="list" value= <%= title %> >
+            </form>    
+        <% }) %>
             
+        <form class="item" action="/" method="post">
+            <input type="text" name="todo" placeholder="today's work" autocomplete="off">
+            <button class="submitbut" type="submit" name="button" value= <%= listName %> >+</button>
+        </form>              
+    </div>
 
-            <form class="item" action="/" method="post">
-                <input type="text" name="todo" placeholder="today's work" autocomplete="off">
-                <button type="submit" name="button" value= <%= listName %> >+</button>
-            </form>
-                  
-        </div>
-        
+    <div class= "navbut">
+        <a href="/"> <button class="btn"> Go To Home </button> </a>
+        <a href="/work"> <button class="btn"> Go To Work </button> </a>
+    </div>
 
-        
-
-        
-        
-    </body>
-</html>
+<%- include("footer"); -%>
