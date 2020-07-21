@@ -5,7 +5,7 @@ const date = require(__dirname + "/dateModule.js");
 
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true, useUnifiedTopology:true});
+mongoose.connect("mongodb+srv://starktara:poojatara@cluster0.sdcgd.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology:true});
 const homeItemsSchema = mongoose.Schema({
     itemName: String
 });
@@ -89,6 +89,6 @@ app.post("/delete", function(req, res){
 }
 });
   
-app.listen(4040, function(){
+app.listen(process.env.Port || 4040, function(){
     console.log("server running at port 4040");
 })
